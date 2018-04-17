@@ -6,6 +6,7 @@ import org.telegram.telegrambots.api.objects.File;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import tgside.handlers.TGMsgHandler;
@@ -13,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TGMain extends TelegramLongPollingBot {
-    private final String BOT_TOKEN = "457947884:AAFmn_2XHidZwbOXpLl75VhJ9xqmSj2KqhU";
+    private String BOT_TOKEN;
+
+    public TGMain(final String token, final DefaultBotOptions options) {
+        super(options);
+        BOT_TOKEN = token;
+    }
 
     @Override
     public String getBotUsername() {
