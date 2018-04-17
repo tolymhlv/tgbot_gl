@@ -16,6 +16,10 @@ import java.util.List;
 public class TGMain extends TelegramLongPollingBot {
     private String BOT_TOKEN;
 
+    public TGMain() {
+
+    }
+
     public TGMain(final String token, final DefaultBotOptions options) {
         super(options);
         BOT_TOKEN = token;
