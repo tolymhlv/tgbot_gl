@@ -23,6 +23,7 @@ public class VKMain extends Thread{
         vk = new VkApiClient(transportClient);
         groupActor = new GroupActor(GROUP_ID, GROUP_TOKEN);
         actor = new UserActor(USER_ID, USER_TOKEN);
+        System.out.println("VK actor has been initialized");
 
     }
 

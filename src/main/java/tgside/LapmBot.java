@@ -13,15 +13,18 @@ import tgside.handlers.TGMsgHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TGMain extends TelegramLongPollingBot {
+public class LapmBot extends TelegramLongPollingBot {
     private String BOT_TOKEN;
 
-    public TGMain() {
+    public LapmBot() {
 
     }
 
-    public TGMain(final String token, final DefaultBotOptions options) {
+    public LapmBot(final String token, final DefaultBotOptions options) {
         super(options);
+        BOT_TOKEN = token;
+    }
+    public LapmBot(final String token) {
         BOT_TOKEN = token;
     }
 
@@ -34,7 +37,7 @@ public class TGMain extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         // Форк на тип запроса
-        if(update.hasMessage()) new TGMsgHandler(update.getMessage()).run();
+        if(update.hasMessage()) new TGMsgHandler(update.getMessage(), this).run();
         else new QueryThread().answerCallbackQuery(update.getCallbackQuery());
     }
 

@@ -6,26 +6,25 @@ import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import tgside.LapmBot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TGTextHandler extends TGHandler {
-    private Message msg;
-
-    public TGTextHandler(Message msg) {
-        this.msg = msg;
+    public TGTextHandler(Message msg, LapmBot bot) {
+        super(msg, bot);
     }
 
     @Override
     public void sendMessage(String text) {
         SendMessage sms = new SendMessage();
         sms.enableMarkdown(true);
-        sms.setChatId(msg.getChatId().toString());
+        sms.setChatId(msg.getChatId());
         sms.setText(text);
         try {
             setButtons(sms);
-            execute(sms);
+            bot.execute(sms);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

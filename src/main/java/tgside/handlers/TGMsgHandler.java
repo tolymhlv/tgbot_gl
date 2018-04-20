@@ -8,12 +8,12 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
 import java.util.List;
+import tgside.LapmBot;
 
 public class TGMsgHandler extends TGHandler implements Runnable {
-    private Message msg;
 
-    public TGMsgHandler(Message msg) {
-        this.msg = msg;
+    public TGMsgHandler(Message msg, LapmBot bot) {
+        super(msg, bot);
     }
 
     @Override
@@ -21,12 +21,11 @@ public class TGMsgHandler extends TGHandler implements Runnable {
         handlIt();
     }
 
-    @Override
     public void handlIt() {
         if (msg.hasPhoto()) {
-            new TGPhotoHandler(msg).handlIt();
-        } else if (msg.hasText()){
-            new TGTextHandler(msg).handlIt();
+            new TGPhotoHandler(msg, bot).handlIt();
+        } else if (msg.hasText()){ ;
+            new TGTextHandler(msg, bot).handlIt();
         }
     }
 
