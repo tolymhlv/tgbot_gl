@@ -2,6 +2,7 @@ package tgside.handlers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vk.api.sdk.objects.photos.Photo;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -14,6 +15,8 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import starter.Starter;
 import tgside.LapmBot;
+import tgside.handlers.ents.PhotoResponse;
+import vkside.VKAdd;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,10 +40,8 @@ public class TGPhotoHandler extends TGHandler{
             if (postfix.equals(newPostfix)) continue;
             postfix = newPostfix;
             String pathId = "https://api.telegram.org/bot"+ bot.getBotToken() +"/getFile?file_id=" + fileId;
-//            нужно отпрвить запрос pathId и доставть из  него path http apache
-//            System.out.println(pathId);
-            System.out.println(sendPost(pathId));
-//            new VKAdd().addPhoto("", this);
+            String directLink = "https://api.telegram.org/file/bot"+ bot.getBotToken() + "/" + getPhotoPath(pathId);
+            new VKAdd().addPhoto(directLink, this);
         }
     }
     public void sendMessage(String text) {
@@ -85,13 +86,12 @@ public class TGPhotoHandler extends TGHandler{
         replyKeyboardMarkup.setKeyboard(keyboard);
     }
 
-    public String sendPost(String url) {
+    public String getPhotoPath(String url) {
         HttpClient client = HttpClientBuilder.create().setProxy(Starter.proxy).build();
         HttpPost post = new HttpPost(url);
         StringBuffer result = new StringBuffer();
         try {
             HttpResponse response = client.execute(post);
-//            System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String line = "";
             while ((line = rd.readLine()) != null) {
@@ -101,8 +101,8 @@ public class TGPhotoHandler extends TGHandler{
             e.printStackTrace();
         }
         Gson gson = new GsonBuilder().create();
-
-        return result.toString();
+        PhotoResponse pr = gson.fromJson(result.toString(), PhotoResponse.class);
+        return pr.getResult().getFilePath();
     }
     public Message getMsg() {
         return msg;

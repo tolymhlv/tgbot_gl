@@ -10,19 +10,23 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import tgside.handlers.TGMsgHandler;
+import vkside.VKMain;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LapmBot extends TelegramLongPollingBot {
     private String BOT_TOKEN;
+    private VKMain vkMain;
 
     public LapmBot() {
 
     }
 
-    public LapmBot(final String token, final DefaultBotOptions options) {
+    public LapmBot(final String token, final DefaultBotOptions options, final VKMain vkMain) {
         super(options);
         BOT_TOKEN = token;
+        this.vkMain = vkMain;
     }
     public LapmBot(final String token) {
         BOT_TOKEN = token;

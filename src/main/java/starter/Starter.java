@@ -14,7 +14,7 @@ import vkside.VKMain;
 
 public class Starter {
     public static final HttpHost proxy = new HttpHost("86.105.49.170", 8080);
-
+    public static VKMain vkMain = new VKMain();
 
     public static void main(String[] args) {
         Starter starter = new Starter();
@@ -31,7 +31,7 @@ public class Starter {
         options.setRequestConfig(requestConfig);
 
         ApiContextInitializer.init();
-        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getToken(), options);
+        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getToken(), options, vkMain);
 //        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getToken());
         final TelegramBotsApi botapi = new TelegramBotsApi();
         try {
@@ -44,7 +44,11 @@ public class Starter {
     }
 
     public void vkInit() {
-        new VKMain().start();
+        vkMain.start();
+    }
+
+    public VKMain getVkMain() {
+        return vkMain;
     }
 
     public void waiting(long ms) {
