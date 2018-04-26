@@ -1,6 +1,6 @@
 package tgside.init;
 
-public interface TokenProvider {
+public interface TGTokenProvider {
 
     String getToken();
 }

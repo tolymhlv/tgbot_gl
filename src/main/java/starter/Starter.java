@@ -8,13 +8,13 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import tgside.LapmBot;
-import tgside.init.CommandLineArgsTokenProvider;
-import tgside.init.TokenProvider;
+import tgside.init.TGCommandLineArgsTokenProvider;
+import tgside.init.TGTokenProvider;
 import vkside.VKMain;
 
 public class Starter {
-    public static final HttpHost proxy = new HttpHost("86.105.49.170", 8080);
-    public static VKMain vkMain = new VKMain();
+    public static final HttpHost proxy = new HttpHost("5.197.183.222", 8080);
+    public static final VKMain vkMain = new VKMain();
 
     public static void main(String[] args) {
         Starter starter = new Starter();
@@ -22,8 +22,7 @@ public class Starter {
         starter.vkInit();
     }
     public void tgInit(String[] args) {
-
-        final TokenProvider tokenProvider = new CommandLineArgsTokenProvider(args);
+        final TGTokenProvider TGTokenProvider = new TGCommandLineArgsTokenProvider(args);
         final RequestConfig requestConfig = RequestConfig.custom()
                 .setProxy(new HttpHost(proxy))
                 .build();
@@ -31,8 +30,7 @@ public class Starter {
         options.setRequestConfig(requestConfig);
 
         ApiContextInitializer.init();
-        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getToken(), options, vkMain);
-//        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getToken());
+        final TelegramLongPollingBot bot = new LapmBot(TGTokenProvider.getToken(), options);
         final TelegramBotsApi botapi = new TelegramBotsApi();
         try {
             botapi.registerBot(bot);
@@ -40,15 +38,11 @@ public class Starter {
             e.printStackTrace();
         }
 
-        System.out.println("Bot '" + bot.getBotUsername() + "' registered");
+        System.out.println("TG Bot '" + bot.getBotUsername() + "' registered");
     }
 
     public void vkInit() {
         vkMain.start();
-    }
-
-    public VKMain getVkMain() {
-        return vkMain;
     }
 
     public void waiting(long ms) {

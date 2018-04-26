@@ -2,7 +2,6 @@ package tgside.handlers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vk.api.sdk.objects.photos.Photo;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -16,7 +15,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import starter.Starter;
 import tgside.LapmBot;
 import tgside.handlers.ents.PhotoResponse;
-import vkside.VKAdd;
+import vkside.VKAddPhoto;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,14 +33,14 @@ public class TGPhotoHandler extends TGHandler{
         int sizeAlbum = msg.getPhoto().size();
         String postfix = "";
         for (int i = sizeAlbum - 1; i >= 0; i--) {
-//            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
+            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
             String fileId = msg.getPhoto().get(i).getFileId();
             String newPostfix = fileId.substring(fileId.length() - 5, fileId.length());
             if (postfix.equals(newPostfix)) continue;
             postfix = newPostfix;
             String pathId = "https://api.telegram.org/bot"+ bot.getBotToken() +"/getFile?file_id=" + fileId;
             String directLink = "https://api.telegram.org/file/bot"+ bot.getBotToken() + "/" + getPhotoPath(pathId);
-            new VKAdd().addPhoto(directLink, this);
+            new VKAddPhoto().addPhoto(directLink, this);
         }
     }
     public void sendMessage(String text) {
@@ -86,7 +85,7 @@ public class TGPhotoHandler extends TGHandler{
         replyKeyboardMarkup.setKeyboard(keyboard);
     }
 
-    public String getPhotoPath(String url) {
+    private String getPhotoPath(String url) {
         HttpClient client = HttpClientBuilder.create().setProxy(Starter.proxy).build();
         HttpPost post = new HttpPost(url);
         StringBuffer result = new StringBuffer();
