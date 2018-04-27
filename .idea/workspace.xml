@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8e0d8d1-7ef9-4dcf-9c1e-705ea9030933" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/tgside/Display.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/tgside/boards/Board.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/tgside/boards/ScoreBoard.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/utils/URLReader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/vkside/ents/AccessToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/vkside/init/VKConsoleTokenProvider.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/vkside/init/VKTokenProvider.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/vkside/VKAdd.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/tgside/init/CommandLineArgsTokenProvider.java" afterPath="$PROJECT_DIR$/src/main/java/tgside/init/TGCommandLineArgsTokenProvider.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/tgside/init/TokenProvider.java" afterPath="$PROJECT_DIR$/src/main/java/tgside/init/TGTokenProvider.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/vkside/VKAdd.java" afterPath="$PROJECT_DIR$/src/main/java/vkside/VKAddPhoto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/tgside/handlers/TGPhotoHandler.class" afterPath="$PROJECT_DIR$/target/classes/tgside/handlers/TGPhotoHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/vkside/VKMain.class" afterPath="$PROJECT_DIR$/target/classes/vkside/VKMain.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/starter/Starter.java" afterPath="$PROJECT_DIR$/src/main/java/starter/Starter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tgside/Display.java" afterPath="$PROJECT_DIR$/src/main/java/tgside/Display.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tgside/LapmBot.java" afterPath="$PROJECT_DIR$/src/main/java/tgside/LapmBot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tgside/handlers/TGPhotoHandler.java" afterPath="$PROJECT_DIR$/src/main/java/tgside/handlers/TGPhotoHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/vkside/VKMain.java" afterPath="$PROJECT_DIR$/src/main/java/vkside/VKMain.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -87,8 +71,31 @@
       <file leaf-file-name="TGTextHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGTextHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+            <state relative-caret-position="85">
+              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TGPhotoHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGPhotoHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="24" lean-forward="true" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+              <folding>
+                <element signature="e#4079#4080#0" expanded="true" />
+                <element signature="e#4105#4106#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TGHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="24" lean-forward="true" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -97,9 +104,13 @@
       <file leaf-file-name="Display.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tgside/Display.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="187">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#228#229#0" expanded="true" />
+                <element signature="e#258#259#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,9 +128,11 @@
       <file leaf-file-name="LapmBot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tgside/LapmBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="38" column="13" lean-forward="true" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="629">
+              <caret line="52" column="33" lean-forward="false" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+              <folding>
+                <element signature="e#1617#1618#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -179,11 +192,12 @@
         <option value="$PROJECT_DIR$/src/main/java/vkside/ents/AccessToken.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/URLReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/vkside/VKMain.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tgside/LapmBot.java" />
         <option value="$PROJECT_DIR$/src/main/java/starter/Starter.java" />
         <option value="$PROJECT_DIR$/src/main/java/vkside/init/VKConsoleTokenProvider.java" />
         <option value="$PROJECT_DIR$/src/main/java/tgside/boards/ScoreBoard.java" />
         <option value="$PROJECT_DIR$/src/main/java/tgside/boards/Board.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tgside/LapmBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tgside/Display.java" />
       </list>
     </option>
   </component>
@@ -478,7 +492,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524417603085</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="display&#10;scoreboard">
+      <created>1524775099842</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1524775099842</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -492,21 +513,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2176" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32772493" sideWeight="0.49841145" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269934" sideWeight="0.49484536" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3269934" sideWeight="0.49484536" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29261157" sideWeight="0.29507545" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29261157" sideWeight="0.7049245" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29261157" sideWeight="0.7049245" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845646" sideWeight="0.49682286" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269934" sideWeight="0.49343956" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23523898" sideWeight="0.49618322" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23523898" sideWeight="0.49618322" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991952" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980143" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.067010306" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -529,7 +551,8 @@
     <MESSAGE value="change proxy" />
     <MESSAGE value="refactor &#10;sendPost edited" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="display&#10;scoreboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="display&#10;scoreboard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -570,8 +593,8 @@
             <element signature="imports" expanded="false" />
             <element signature="e#1060#1061#0" expanded="false" />
             <element signature="e#1091#1092#0" expanded="false" />
-            <element signature="e#4079#4080#0" expanded="false" />
-            <element signature="e#4105#4106#0" expanded="false" />
+            <element signature="e#4079#4080#0" expanded="true" />
+            <element signature="e#4105#4106#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -582,8 +605,8 @@
           <caret line="40" column="50" lean-forward="true" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#1000#1001#0" expanded="false" />
-            <element signature="e#1033#1034#0" expanded="false" />
+            <element signature="e#1055#1056#0" expanded="false" />
+            <element signature="e#1088#1089#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -734,16 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -873,20 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGPhotoHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1506">
-          <caret line="105" column="27" lean-forward="true" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1060#1061#0" expanded="false" />
-            <element signature="e#1091#1092#0" expanded="false" />
-            <element signature="e#4079#4080#0" expanded="false" />
-            <element signature="e#4105#4106#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/vkside/ents/AccessToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -933,14 +932,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/LapmBot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="38" column="13" lean-forward="true" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/starter/Starter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="537">
@@ -973,14 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/boards/ScoreBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tgside/boards/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -989,19 +972,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/LapmBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="52" column="33" lean-forward="false" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+          <folding>
+            <element signature="e#1617#1618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGTextHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="85">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGPhotoHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="24" lean-forward="true" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding>
+            <element signature="e#4079#4080#0" expanded="true" />
+            <element signature="e#4105#4106#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/handlers/TGHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="24" lean-forward="true" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tgside/boards/ScoreBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tgside/Display.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="187">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#228#229#0" expanded="true" />
+            <element signature="e#258#259#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

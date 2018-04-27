@@ -17,6 +17,7 @@ import java.util.List;
 
 public class LapmBot extends TelegramLongPollingBot {
     private String BOT_TOKEN;
+    private final Display display = new Display(this);
 
     public LapmBot() {
 
@@ -49,7 +50,10 @@ public class LapmBot extends TelegramLongPollingBot {
 
     }
 
-//    public class QueryThread extends Thread {
+    public Display getDisplay() {
+        return display;
+    }
+    //    public class QueryThread extends Thread {
 //        public synchronized void answerCallbackQuery(CallbackQuery cq) {
 //            AnswerCallbackQuery answer = new AnswerCallbackQuery();
 //            answer.setCallbackQueryId(cq.getId());
