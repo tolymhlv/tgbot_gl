@@ -7,6 +7,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -15,33 +16,25 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import starter.Starter;
 import tgside.LapmBot;
 import tgside.handlers.ents.PhotoResponse;
-import vkside.VKAddPhoto;
+import vkside.VKPhotoDel;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TGPhotoHandler extends TGHandler{
+public class TGPhotoDel extends TGHandler{
 
-    public TGPhotoHandler(Message msg, LapmBot bot) {
+    public TGPhotoDel(Message msg, LapmBot bot) {
         super(msg, bot);
     }
 
     public void handlIt() {
-        int sizeAlbum = msg.getPhoto().size();
-        String postfix = "";
-        for (int i = sizeAlbum - 1; i >= 0; i--) {
-            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
-            String fileId = msg.getPhoto().get(i).getFileId();
-            String newPostfix = fileId.substring(fileId.length() - 5, fileId.length());
-            if (postfix.equals(newPostfix)) continue;
-            postfix = newPostfix;
-            String pathId = "https://api.telegram.org/bot"+ bot.getBotToken() +"/getFile?file_id=" + fileId;
-            String directLink = "https://api.telegram.org/file/bot"+ bot.getBotToken() + "/" + getPhotoPath(pathId);
-            new VKAddPhoto().addPhoto(directLink, this);
-        }
+        sendMessage("This photo will be delete. Are you sure?");
+        sendLastPhoto();
+
     }
     public void sendMessage(String text) {
         SendMessage sms = new SendMessage();
@@ -53,6 +46,25 @@ public class TGPhotoHandler extends TGHandler{
             bot.execute(sms);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }
+    }
+    public void sendLastPhoto() {
+        File lastPhoto = new VKPhotoDel(this).getLastPhoto();
+        SendPhoto sp = new SendPhoto();
+        sp.setChatId(msg.getChatId().toString());
+        sp.setNewPhoto(lastPhoto);
+        try {
+            bot.sendPhoto(sp);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteLastPhoto() {
+        if (new VKPhotoDel(this).deleteLastPhoto()) {
+            sendMessage("Photo has been deleted");
+        } else {
+            sendMessage("Ошибка удаления фото");
         }
     }
 
@@ -70,16 +82,11 @@ public class TGPhotoHandler extends TGHandler{
 
         // Первая строчка
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("DELETE"));
-
-        // Вторая строчка клавиатуры
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("SCORE"));
-
+        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDD34 YES"));
+        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDC9A BACK"));
 
         // Добавляем клавиатуру в список
         keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
 
         // и устанваливаем этот список нашей клавиатуре
         replyKeyboardMarkup.setKeyboard(keyboard);
@@ -106,5 +113,4 @@ public class TGPhotoHandler extends TGHandler{
     public Message getMsg() {
         return msg;
     }
-
 }

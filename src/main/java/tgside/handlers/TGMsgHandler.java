@@ -23,7 +23,7 @@ public class TGMsgHandler extends TGHandler implements Runnable {
 
     public void handlIt() {
         if (msg.hasPhoto()) {
-            new TGPhotoHandler(msg, bot).handlIt();
+            new TGPhotoAdd(msg, bot).handlIt();
         } else if (msg.hasText()){ ;
             new TGTextHandler(msg, bot).handlIt();
         }

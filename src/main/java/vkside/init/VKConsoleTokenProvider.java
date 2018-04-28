@@ -22,7 +22,7 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
     public String getToken() {
 //        String code = getCode();
 //        return getAccesToken(code);
-        String mock = "af496539ae2c4bde1f35d179d9969d9fef6f809cb54acc2208b7c5cac63c262df20a6811cd2f1438839e4";
+        String mock = "b51f2e629217e07c4b1a93d946a062767534a3b978a14912eebdd7e89a76d43cfa02d9deae3fa8ec11c63";
         return mock;
     }
 

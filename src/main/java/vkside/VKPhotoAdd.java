@@ -9,26 +9,28 @@ import com.vk.api.sdk.objects.photos.PhotoUpload;
 import com.vk.api.sdk.objects.photos.responses.GetAlbumsResponse;
 import com.vk.api.sdk.objects.photos.responses.PhotoUploadResponse;
 import starter.Starter;
-import tgside.handlers.TGPhotoHandler;
+import tgside.handlers.TGPhotoAdd;
 import utils.URLReader;
 
 import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-public class VKAddPhoto {
-    public TGPhotoHandler handler;
+public class VKPhotoAdd {
+    public TGPhotoAdd handler;
     private static VKMain vkMain = Starter.vkMain;
     private VkApiClient vk = Starter.vkMain.getVk();
     private UserActor actor = vkMain.getActor();
     private Integer groupId = vkMain.getGroupID();
 
+    public VKPhotoAdd(TGPhotoAdd handler) {
+        this.handler = handler;
+    }
 
-    public void addPhoto(String uri, TGPhotoHandler handler) {
+    public void addPhoto(String uri) {
         String userName = handler.getMsg().getChat().getUserName();
         File newPhoto = new File("/Users/mhlv/Documents/Photos" ,userName + new Date().getTime() + ".jpg" );
         URLReader.copyURLToFile(uri, newPhoto);
-        this.handler = handler;
         PhotoUpload photoUpload = getServerUpload(handler.getMsg().getChat().getUserName());
         try {
             PhotoUploadResponse uploadResponse = vk.upload().photo(photoUpload.getUploadUrl(), newPhoto).execute();

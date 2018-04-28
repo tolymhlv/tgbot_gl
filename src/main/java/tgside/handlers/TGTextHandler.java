@@ -40,8 +40,13 @@ public class TGTextHandler extends TGHandler {
             case "SCORE":
                 sendMessage("score-table generator is not ready yet :(");
                 break;
+            case "DELETE":
+                new TGPhotoDel(msg, bot).handlIt();
+                break;
+            case "\uD83D\uDD34 YES":
+                new TGPhotoDel(msg, bot).deleteLastPhoto();
             default:
-                sendMessage(msg.getChat().getUserName() + ", photos has been deleted.");
+                sendMessage("Are you hear?");
         }
     }
 
