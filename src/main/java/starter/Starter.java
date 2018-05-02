@@ -13,7 +13,7 @@ import tgside.init.TGTokenProvider;
 import vkside.VKMain;
 
 public class Starter {
-    public static final HttpHost proxy = new HttpHost("5.197.183.222", 8080);
+    public static final HttpHost proxy = new HttpHost("192.116.142.153", 8080);
     public static final VKMain vkMain = new VKMain();
 
     public static void main(String[] args) {

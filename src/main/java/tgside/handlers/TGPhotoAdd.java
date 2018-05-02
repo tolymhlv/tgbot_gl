@@ -43,18 +43,6 @@ public class TGPhotoAdd extends TGHandler{
             new VKPhotoAdd(this).addPhoto(directLink);
         }
     }
-    public void sendMessage(String text) {
-        SendMessage sms = new SendMessage();
-        sms.enableMarkdown(true);
-        sms.setChatId(msg.getChatId().toString());
-        sms.setText(text);
-        try {
-            setButtons(sms);
-            bot.execute(sms);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void setButtons(SendMessage sendMessage) {
@@ -70,11 +58,11 @@ public class TGPhotoAdd extends TGHandler{
 
         // Первая строчка
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("DELETE"));
+        keyboardFirstRow.add(new KeyboardButton("delete last"));
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("SCORE"));
+        keyboardSecondRow.add(new KeyboardButton("score"));
 
 
         // Добавляем клавиатуру в список

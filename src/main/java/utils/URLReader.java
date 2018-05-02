@@ -42,7 +42,7 @@ public class URLReader {
             input.close();
             output.close();
 
-            System.out.println("Photo '" + file.getName() + "' was saved on server!");
+            System.out.println("Photo '" + file.getName() + "' was saved to the storage!");
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }

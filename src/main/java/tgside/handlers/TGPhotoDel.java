@@ -60,12 +60,8 @@ public class TGPhotoDel extends TGHandler{
         }
     }
 
-    public void deleteLastPhoto() {
-        if (new VKPhotoDel(this).deleteLastPhoto()) {
-            sendMessage("Photo has been deleted");
-        } else {
-            sendMessage("Delete error %(");
-        }
+    public boolean deleteLastPhoto() {
+        return new VKPhotoDel(this).deleteLastPhoto();
     }
 
     @Override
@@ -82,8 +78,8 @@ public class TGPhotoDel extends TGHandler{
 
         // Первая строчка
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDD34 DELETE"));
-        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDC9A BACK"));
+        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDD34 delete"));
+        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDC9A back"));
 
         // Добавляем клавиатуру в список
         keyboard.add(keyboardFirstRow);
