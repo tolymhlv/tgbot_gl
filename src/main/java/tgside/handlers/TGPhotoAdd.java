@@ -35,7 +35,6 @@ public class TGPhotoAdd extends TGHandler{
         for (int i = sizeAlbum - 1; i >= 0; i--) {
 //            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
             String fileId = msg.getPhoto().get(i).getFileId();
-            System.out.println(fileId);
             String newPostfix = fileId.substring(20, 25);
             if (postfix.equals(newPostfix)) continue;
             postfix = newPostfix;

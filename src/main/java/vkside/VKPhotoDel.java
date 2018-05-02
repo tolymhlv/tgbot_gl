@@ -24,10 +24,11 @@ public class VKPhotoDel {
     private VkApiClient vk = Starter.vkMain.getVk();
     private UserActor actor = vkMain.getActor();
     private Integer groupId = vkMain.getGroupID();
-    private String userName = handler.getMsg().getChat().getUserName();
+    private String userName;
 
     public VKPhotoDel(TGPhotoDel handler) {
         this.handler = handler;
+        userName =  handler.getMsg().getChat().getUserName();
     }
 
     private boolean deletePhoto(int photoId) {
@@ -46,7 +47,7 @@ public class VKPhotoDel {
 
     public File getLastPhoto() {
         String userName = handler.getMsg().getChat().getUserName();
-        File lastPhoto = new File("/Users/mhlv/Documents/Photos" ,new Date().getTime() + userName + ".jpg" );
+        File lastPhoto = new File("/Users/mhlv/Documents/Photos" , userName +new Date().getTime() + ".jpg" );
         String lastPhotoUrl = getLastPhotoUrl();
         if (lastPhotoUrl != null) {
             URLReader.copyURLToFile(lastPhotoUrl, lastPhoto);

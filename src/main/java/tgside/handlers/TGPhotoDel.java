@@ -32,7 +32,6 @@ public class TGPhotoDel extends TGHandler{
     }
 
     public void handlIt() {
-        sendMessage("This photo will be delete. Are you sure?");
         sendLastPhoto();
 
     }
@@ -55,8 +54,9 @@ public class TGPhotoDel extends TGHandler{
         sp.setNewPhoto(lastPhoto);
         try {
             bot.sendPhoto(sp);
+            sendMessage("This photo will be delete. Are you sure?");
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            sendMessage("Delete error :(. Maybe there is no photo in album.");
         }
     }
 
@@ -64,7 +64,7 @@ public class TGPhotoDel extends TGHandler{
         if (new VKPhotoDel(this).deleteLastPhoto()) {
             sendMessage("Photo has been deleted");
         } else {
-            sendMessage("Ошибка удаления фото");
+            sendMessage("Delete error %(");
         }
     }
 
@@ -82,7 +82,7 @@ public class TGPhotoDel extends TGHandler{
 
         // Первая строчка
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDD34 YES"));
+        keyboardFirstRow.add(new KeyboardButton("\uD83D\uDD34 DELETE"));
         keyboardFirstRow.add(new KeyboardButton("\uD83D\uDC9A BACK"));
 
         // Добавляем клавиатуру в список
@@ -109,8 +109,5 @@ public class TGPhotoDel extends TGHandler{
         Gson gson = new GsonBuilder().create();
         PhotoResponse pr = gson.fromJson(result.toString(), PhotoResponse.class);
         return pr.getResult().getFilePath();
-    }
-    public Message getMsg() {
-        return msg;
     }
 }

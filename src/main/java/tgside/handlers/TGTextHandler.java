@@ -43,8 +43,9 @@ public class TGTextHandler extends TGHandler {
             case "DELETE":
                 new TGPhotoDel(msg, bot).handlIt();
                 break;
-            case "\uD83D\uDD34 YES":
+            case "\uD83D\uDD34 DELETE":
                 new TGPhotoDel(msg, bot).deleteLastPhoto();
+                break;
             default:
                 sendMessage("Are you hear?");
         }

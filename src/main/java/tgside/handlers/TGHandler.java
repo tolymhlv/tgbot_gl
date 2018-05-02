@@ -28,4 +28,8 @@ public abstract class TGHandler {
     public abstract void handlIt();
 
     public abstract void setButtons(SendMessage sendMessage);
+
+    public Message getMsg() {
+        return msg;
+    }
 }

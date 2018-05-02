@@ -42,7 +42,7 @@ public class URLReader {
             input.close();
             output.close();
 
-            System.out.println("File '" + file + "' downloaded successfully!");
+            System.out.println("Photo '" + file.getName() + "' was saved on server!");
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
