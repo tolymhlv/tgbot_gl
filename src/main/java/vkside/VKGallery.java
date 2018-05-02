@@ -7,23 +7,21 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.photos.responses.GetAlbumsResponse;
 import com.vk.api.sdk.queries.photos.PhotosGetQuery;
-import exceptions.PhotoListIsEmptyException;
 import starter.Starter;
-import tgside.handlers.TGPhotoDel;
-import utils.URLReader;
+import tgside.handlers.TGGallery;
+import vkside.exceptions.NoSuchAlbumException;
 
-import java.io.File;
 import java.util.*;
 
 public class VKGallery {
-    public TGPhotoDel handler;
+    public TGGallery handler;
     private static VKMain vkMain = Starter.vkMain;
     private VkApiClient vk = Starter.vkMain.getVk();
     private UserActor actor = vkMain.getActor();
     private Integer groupId = vkMain.getGroupID();
     private String userName;
 
-    public VKGallery(TGPhotoDel handler) {
+    public VKGallery(TGGallery handler) {
         this.handler = handler;
         userName =  handler.getMsg().getChat().getUserName();
     }
@@ -74,6 +72,21 @@ public class VKGallery {
         }
         return createAlbum();
     }
+    private int getAlbumId(String albumName) {
+        GetAlbumsResponse albums = null;
+        try {
+            albums = vk.photos().getAlbums(actor).ownerId(-groupId).execute();
+        } catch (ApiException | ClientException e) {
+            e.printStackTrace();
+
+        }
+        for (int i = 0; i < albums.getItems().size(); i++) {
+            if (albums.getItems().get(i).getTitle().equals(albumName)) {
+                return albums.getItems().get(i).getId();
+            }
+        }
+        return -1;
+    }
 
     private int createAlbum() {
         String albumName = userName;
@@ -94,5 +107,14 @@ public class VKGallery {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String getAlbumLink(String albumName) throws NoSuchAlbumException {
+        int albomId = getAlbumId(albumName);
+        String albumLink = "empty";
+        if (albomId != -1) {
+            albumLink = "vk.com/album-" + groupId + "_" + albomId;
+        } else throw new NoSuchAlbumException();
+        return albumLink;
     }
 }
