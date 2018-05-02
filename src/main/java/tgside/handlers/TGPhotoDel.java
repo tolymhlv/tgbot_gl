@@ -2,6 +2,7 @@ package tgside.handlers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import exceptions.PhotoListIsEmptyException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -35,18 +36,6 @@ public class TGPhotoDel extends TGHandler{
         sendLastPhoto();
 
     }
-    public void sendMessage(String text) {
-        SendMessage sms = new SendMessage();
-        sms.enableMarkdown(true);
-        sms.setChatId(msg.getChatId().toString());
-        sms.setText(text);
-        try {
-            setButtons(sms);
-            bot.execute(sms);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
     public void sendLastPhoto() {
         File lastPhoto = new VKPhotoDel(this).getLastPhoto();
         SendPhoto sp = new SendPhoto();
@@ -60,8 +49,9 @@ public class TGPhotoDel extends TGHandler{
         }
     }
 
-    public boolean deleteLastPhoto() {
+    public boolean deleteLastPhoto() throws PhotoListIsEmptyException{
         return new VKPhotoDel(this).deleteLastPhoto();
+
     }
 
     @Override

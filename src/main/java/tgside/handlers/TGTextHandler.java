@@ -1,5 +1,6 @@
 package tgside.handlers;
 
+import exceptions.PhotoListIsEmptyException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -24,18 +25,24 @@ public class TGTextHandler extends TGHandler {
             case "/start":
                 sendMessage("Just drop a new photo of a growlamp");
                 break;
-            case "SCORE":
+            case "score":
                 sendMessage("score-table generator is not ready yet :(");
                 break;
-            case "DELETE":
+            case "delete last":
                 new TGPhotoDel(msg, bot).handlIt();
                 break;
             case "\uD83D\uDD34 delete":
-                if (new TGPhotoDel(msg, bot).deleteLastPhoto())
+                boolean wasDelet = false;
+                try {
+                    wasDelet = new TGPhotoDel(msg, bot).deleteLastPhoto();
                     sendMessage("Photo has been deleted");
-                else
-                    sendMessage("Delete error %(");
+                } catch (PhotoListIsEmptyException e) {
+                    sendMessage("delete error %(. photoalbum is empty");
+                    e.printStackTrace();
+                }
                 break;
+            case "gallery":
+                new TGGallery(msg, bot).handlIt();
             default:
                 sendMessage("Just drop a new photo of a growlamp");
         }
