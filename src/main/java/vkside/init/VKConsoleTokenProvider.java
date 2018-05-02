@@ -22,12 +22,12 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
     public String getToken() {
 //        String code = getCode();
 //        return getAccesToken(code);
-        String mock = "b51f2e629217e07c4b1a93d946a062767534a3b978a14912eebdd7e89a76d43cfa02d9deae3fa8ec11c63";
+        String mock = "b03c258865971edea7cfca034896e2df06f84a23f50047551f2c58ea04b7255a961d42b93109ea98f8f06";
         return mock;
     }
 
     public String getCode() {
-        String link1 = "https://oauth.vk.com/authorize?client_id=" + main.getAppID() + "&display=page&redirect_uri=&scope=photos,groups&response_type=code&v=5.74";
+        String link1 = "https://oauth.vk.com/authorize?client_id=" + main.getAppID() + "&display=page&redirect_uri=&scope=photos,groups,offline&response_type=code&v=5.74";
         System.out.println(link1);
         System.out.print("Follow the link and copy the code from browser. Code:  ");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
