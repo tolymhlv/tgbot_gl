@@ -33,9 +33,10 @@ public class TGPhotoAdd extends TGHandler{
         int sizeAlbum = msg.getPhoto().size();
         String postfix = "";
         for (int i = sizeAlbum - 1; i >= 0; i--) {
-            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
+//            String mock = "/Users/mhlv/Documents/VLvYcIOpkuA.jpg";
             String fileId = msg.getPhoto().get(i).getFileId();
-            String newPostfix = fileId.substring(fileId.length() - 5, fileId.length());
+            System.out.println(fileId);
+            String newPostfix = fileId.substring(20, 25);
             if (postfix.equals(newPostfix)) continue;
             postfix = newPostfix;
             String pathId = "https://api.telegram.org/bot"+ bot.getBotToken() +"/getFile?file_id=" + fileId;
