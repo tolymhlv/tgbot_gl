@@ -25,7 +25,7 @@ public class TGGallery extends TGHandler {
     }
 
     public void handlIt(String albumName) {
-        sendMessage("follow the link");
+        sendMessage("follow the link " + albumName);
         String link = "invalid link";
         try {
             link = vkGallery.getAlbumLink(albumName);
@@ -54,11 +54,11 @@ public class TGGallery extends TGHandler {
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         HashMap map = new HashMap(vkGallery.getAlbumsMap());
         for (int i = 0; i < map.keySet().size(); i++ ) {
-            keyboardSecondRow.add(new KeyboardButton("@" + map.get(i)));
+            keyboardSecondRow.add(new KeyboardButton("@" + map.keySet().toArray()[i]));
         }
         //Трутья строчка
         KeyboardRow keyboardThirdRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("\uD83D\uDC9A back"));
+        keyboardThirdRow.add(new KeyboardButton("\uD83D\uDC9A back"));
         // Добавляем клавиатуру в список
         keyboard.add(keyboardFirstRow);
         keyboard.add(keyboardSecondRow);
