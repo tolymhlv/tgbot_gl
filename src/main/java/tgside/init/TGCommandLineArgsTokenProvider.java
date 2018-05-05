@@ -12,7 +12,7 @@ public class TGCommandLineArgsTokenProvider implements TGTokenProvider {
         this.token = args[0];
     }
 
-    public String getToken() {
+    public String getBotToken() {
         return token;
     }
 }

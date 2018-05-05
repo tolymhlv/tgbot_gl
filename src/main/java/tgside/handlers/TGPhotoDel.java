@@ -2,7 +2,6 @@ package tgside.handlers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import exceptions.PhotoListIsEmptyException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -16,8 +15,9 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import starter.Starter;
 import tgside.LapmBot;
-import tgside.handlers.ents.PhotoResponse;
-import vkside.VKPhotoDel;
+import tgside.ents.PhotoResponse;
+import vkside.exceptions.NoSuchPhotoException;
+import vkside.handlers.VKPhotoDel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +37,12 @@ public class TGPhotoDel extends TGHandler{
 
     }
     public void sendLastPhoto() {
-        File lastPhoto = new VKPhotoDel(this).getLastPhoto();
+        File lastPhoto = null;
+        try {
+            lastPhoto = new VKPhotoDel(this).getLastPhotoPrev();
+        } catch (NoSuchPhotoException e) {
+            e.printStackTrace();
+        }
         SendPhoto sp = new SendPhoto();
         sp.setChatId(msg.getChatId().toString());
         sp.setNewPhoto(lastPhoto);
@@ -49,7 +54,7 @@ public class TGPhotoDel extends TGHandler{
         }
     }
 
-    public boolean deleteLastPhoto() throws PhotoListIsEmptyException{
+    public boolean deleteLastPhoto() throws NoSuchPhotoException{
         return new VKPhotoDel(this).deleteLastPhoto();
 
     }
@@ -79,7 +84,7 @@ public class TGPhotoDel extends TGHandler{
     }
 
     private String getPhotoPath(String url) {
-        HttpClient client = HttpClientBuilder.create().setProxy(Starter.proxy).build();
+        HttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
         HttpPost post = new HttpPost(url);
         StringBuffer result = new StringBuffer();
         try {

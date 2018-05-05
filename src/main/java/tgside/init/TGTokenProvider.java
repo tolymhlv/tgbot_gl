@@ -2,5 +2,5 @@ package tgside.init;
 
 public interface TGTokenProvider {
 
-    String getToken();
+    String getBotToken();
 }

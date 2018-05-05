@@ -11,11 +11,10 @@ import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
 import starter.Starter;
 import tgside.LapmBot;
-import tgside.handlers.ents.PhotoResponse;
-import vkside.VKPhotoAdd;
+import tgside.ents.PhotoResponse;
+import vkside.handlers.VKPhotoAdd;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,7 +73,7 @@ public class TGPhotoAdd extends TGHandler{
     }
 
     private String getPhotoPath(String url) {
-        HttpClient client = HttpClientBuilder.create().setProxy(Starter.proxy).build();
+        HttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
         HttpPost post = new HttpPost(url);
         StringBuffer result = new StringBuffer();
         try {

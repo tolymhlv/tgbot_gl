@@ -7,7 +7,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import starter.Starter;
-import tgside.handlers.ents.PhotoResponse;
 import vkside.VKMain;
 import vkside.ents.AccessToken;
 
@@ -16,18 +15,61 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class VKConsoleTokenProvider implements VKTokenProvider {
-    VKMain main = Starter.vkMain;
+    VKMain main = Starter.getVkMain();
 
     @Override
-    public String getToken() {
-//        String code = getCode();
-//        return getAccesToken(code);
-        String mock = "b03c258865971edea7cfca034896e2df06f84a23f50047551f2c58ea04b7255a961d42b93109ea98f8f06";
-        return mock;
+    public Integer getVkAppId() {
+        System.out.print("Input VK appId:  ");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            return Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public Integer getVkGroupId() {
+        System.out.print("Input VK groupId:  ");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            return Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public String getVkAppSecretCode() {
+        System.out.print("Input VK appSecretCode:  ");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            return br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Error appSecretCode";
+    }
+
+    @Override
+    public String getVkAccesToken() {
+        String code = getCode();
+        return getAccesToken(code);
+
+    }
+
+    @Override
+    public Integer getVkUserId() {
+        System.out.print("Input VK userId:  ");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            return Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public String getCode() {
-        String link1 = "https://oauth.vk.com/authorize?client_id=" + main.getAppID() + "&display=page&redirect_uri=&scope=photos,groups,offline&response_type=code&v=5.74";
+        String link1 = "https://oauth.vk.com/authorize?client_id=" + main.getVkAppId() + "&display=page&redirect_uri=&scope=photos,groups,offline&response_type=code&v=5.74";
         System.out.println(link1);
         System.out.print("Follow the link and copy the code from browser. Code:  ");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
@@ -35,13 +77,13 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "ErrorCode";
+        return "Error code";
 
     }
 
     private String getAccesToken(String code) {
-        String link = "https://oauth.vk.com/access_token?client_id=" + main.getAppID() + "&client_secret=" + main.getAppSecretCode() + "&redirect_uri=&code=" + code;
-        HttpClient client = HttpClientBuilder.create().setProxy(Starter.proxy).build();
+        String link = "https://oauth.vk.com/access_token?client_id=" + main.getVkAppId() + "&client_secret=" + main.getVkAppSecretCode() + "&redirect_uri=&code=" + code;
+        HttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
         HttpPost post = new HttpPost(link);
         StringBuffer result = new StringBuffer();
         try {

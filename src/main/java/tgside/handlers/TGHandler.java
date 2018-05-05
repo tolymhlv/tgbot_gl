@@ -22,7 +22,7 @@ public abstract class TGHandler {
 
     public void sendMessage(String text) {
         SendMessage sms = new SendMessage();
-        sms.enableMarkdown(true);
+//        sms.enableMarkdown(true);
         sms.setChatId(msg.getChatId());
         sms.setText(text);
         try {

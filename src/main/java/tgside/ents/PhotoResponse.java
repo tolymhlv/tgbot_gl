@@ -1,4 +1,4 @@
-package tgside.handlers.ents;
+package tgside.ents;
 
 public class PhotoResponse {
     boolean ok;

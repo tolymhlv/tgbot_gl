@@ -4,21 +4,23 @@ import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
+import starter.Starter;
+import utils.RateLimiterHttpTransportClient;
 import vkside.init.VKConsoleTokenProvider;
+import vkside.init.VKPropertiesTokenProvider;
+import vkside.init.VKTokenProvider;
 
 
 public class VKMain extends Thread {
-    private final String appSecretCode =  "qsPNy30f45dqTrHh1vML";
-    private final Integer appID = 6261709;
-    private final Integer userID = 597538;
-    private final Integer groupID = 165014414;
     private VkApiClient vk;
     private UserActor actor;
+    private VKTokenProvider tokenProvider;
 
     public void run() {
-        TransportClient transportClient = HttpTransportClient.getInstance();
+        TransportClient transportClient = new RateLimiterHttpTransportClient(HttpTransportClient.getInstance(), 2.5);
         vk = new VkApiClient(transportClient);
-        actor = new UserActor(userID, new VKConsoleTokenProvider().getToken());
+        tokenProvider = new VKPropertiesTokenProvider(Starter.getPropertiesPath());
+        actor = new UserActor(getVkUserId(), tokenProvider.getVkAccesToken());
         System.out.println("VK actor has been initialized");
     }
 
@@ -26,24 +28,23 @@ public class VKMain extends Thread {
         return vk;
     }
 
-
     public UserActor getActor() {
         return actor;
     }
 
-    public Integer getAppID() {
-        return appID;
+    public Integer getVkAppId() {
+        return tokenProvider.getVkAppId();
     }
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getVkUserId() {
+        return tokenProvider.getVkUserId();
     }
 
-    public Integer getGroupID() {
-        return groupID;
+    public Integer getVkGroupId() {
+        return tokenProvider.getVkGroupId();
     }
 
-    public String getAppSecretCode() {
-        return appSecretCode;
+    public String getVkAppSecretCode() {
+        return tokenProvider.getVkAppSecretCode();
     }
 }

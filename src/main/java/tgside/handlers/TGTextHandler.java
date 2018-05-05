@@ -1,16 +1,8 @@
 package tgside.handlers;
 
-import exceptions.PhotoListIsEmptyException;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
 import tgside.LapmBot;
-
-import java.util.ArrayList;
-import java.util.List;
+import vkside.exceptions.NoSuchPhotoException;
 
 public class TGTextHandler extends TGHandler {
     public TGTextHandler(Message msg, LapmBot bot) {
@@ -35,8 +27,8 @@ public class TGTextHandler extends TGHandler {
             try {
                 wasDelet = new TGPhotoDel(msg, bot).deleteLastPhoto();
                 sendMessage("Photo has been deleted");
-            } catch (PhotoListIsEmptyException e) {
-                sendMessage("delete error %(. photoalbum is empty");
+            } catch (NoSuchPhotoException e) {
+                sendMessage("delete error %(. maybe album is empty");
                 e.printStackTrace();
             }
 
@@ -45,7 +37,7 @@ public class TGTextHandler extends TGHandler {
         } else if (text.matches("^@.*")) {
             new TGGallery(msg, bot).handlIt(text.substring(1));
         } else {
-            sendMessage("Just drop a new photo of a growlamp");
+            sendMessage("just drop a new photo");
         }
     }
 }

@@ -1,4 +1,4 @@
-package tgside.handlers.ents;
+package tgside.ents;
 
 public class Photo {
     private String file_id;

@@ -4,5 +4,13 @@ import vkside.VKMain;
 
 public interface VKTokenProvider {
 
-    String getToken();
+    Integer getVkAppId();
+
+    Integer getVkGroupId();
+
+    String getVkAppSecretCode();
+
+    String getVkAccesToken();
+
+    Integer getVkUserId();
 }

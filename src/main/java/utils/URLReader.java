@@ -13,9 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class URLReader {
-    public static final Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(Starter.proxy.getHostName(), Starter.proxy.getPort()));
+    public static final Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(Starter.getProxy().getHostName(), Starter.getProxy().getPort()));
 
-    public static void copyURLToFile(String url, File file) {
+    public static File copyURLToFile(String url, File file) {
         try {
             InputStream input = URI.create(url).toURL().openConnection(proxy).getInputStream();
             if (file.exists()) {
@@ -46,5 +46,6 @@ public class URLReader {
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
+        return file;
     }
 }

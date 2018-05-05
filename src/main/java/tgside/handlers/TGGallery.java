@@ -6,22 +6,20 @@ import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import tgside.LapmBot;
-import vkside.VKGallery;
+import vkside.handlers.VKGallery;
 import vkside.exceptions.NoSuchAlbumException;
 
 import java.util.*;
 
 public class TGGallery extends TGHandler {
-    private VKGallery vkGallery;
+    private VKGallery vkGallery = new VKGallery();
 
     public TGGallery(Message msg, LapmBot bot) {
         super(msg, bot);
-        vkGallery = new VKGallery(this);
     }
 
     @Override
     public void handlIt() {
-
     }
 
     public void handlIt(String albumName) {
@@ -29,6 +27,7 @@ public class TGGallery extends TGHandler {
         String link = "invalid link";
         try {
             link = vkGallery.getAlbumLink(albumName);
+            System.out.println(link);
             sendMessage(link);
         } catch (NoSuchAlbumException e) {
             sendMessage("there is not album of user '" + albumName + "' %(");

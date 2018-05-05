@@ -1,14 +1,10 @@
-package vkside;
+package vkside.handlers;
 
-import com.vk.api.sdk.client.VkApiClient;
-import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.photos.Photo;
 import com.vk.api.sdk.objects.photos.PhotoUpload;
-import com.vk.api.sdk.objects.photos.responses.GetAlbumsResponse;
 import com.vk.api.sdk.objects.photos.responses.PhotoUploadResponse;
-import starter.Starter;
 import tgside.handlers.TGPhotoAdd;
 import utils.URLReader;
 
@@ -16,12 +12,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-public class VKPhotoAdd {
-    public TGPhotoAdd handler;
-    private static VKMain vkMain = Starter.vkMain;
-    private VkApiClient vk = Starter.vkMain.getVk();
-    private UserActor actor = vkMain.getActor();
-    private Integer groupId = vkMain.getGroupID();
+public class VKPhotoAdd extends VKHandler {
 
     public VKPhotoAdd(TGPhotoAdd handler) {
         this.handler = handler;
@@ -56,30 +47,4 @@ public class VKPhotoAdd {
         }
         return uploadUrl;
     }
-
-    private int getAlbumId(String albumName) {
-        GetAlbumsResponse albums = null;
-        try {
-            albums = vk.photos().getAlbums(actor).ownerId(-groupId).execute();
-        } catch (ApiException | ClientException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < albums.getItems().size(); i++) {
-            if (albums.getItems().get(i).getTitle().equals(albumName)) {
-                return albums.getItems().get(i).getId();
-            }
-        }
-        return createAlbum(albumName);
-    }
-
-    private int createAlbum(String albumName) {
-        int newAlbumId = -100;
-        try {
-            newAlbumId = vk.photos().createAlbum(actor, albumName).groupId(groupId).description("photos by " + albumName).execute().getId();
-        } catch (ApiException | ClientException e) {
-            e.printStackTrace();
-        }
-        return newAlbumId;
-    }
-
 }

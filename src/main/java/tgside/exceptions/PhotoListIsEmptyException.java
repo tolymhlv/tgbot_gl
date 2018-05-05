@@ -1,4 +1,4 @@
-package exceptions;
+package tgside.exceptions;
 
 import java.nio.file.NoSuchFileException;
 
