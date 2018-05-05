@@ -7,6 +7,7 @@ import com.vk.api.sdk.httpclient.HttpTransportClient;
 import starter.Starter;
 import utils.RateLimiterHttpTransportClient;
 import vkside.init.VKConsoleTokenProvider;
+import vkside.init.VKMockTokenProvider;
 import vkside.init.VKPropertiesTokenProvider;
 import vkside.init.VKTokenProvider;
 
@@ -20,6 +21,7 @@ public class VKMain extends Thread {
         TransportClient transportClient = new RateLimiterHttpTransportClient(HttpTransportClient.getInstance(), 2.5);
         vk = new VkApiClient(transportClient);
         tokenProvider = new VKPropertiesTokenProvider(Starter.getPropertiesPath());
+//        tokenProvider = new VKMockTokenProvider(Starter.getPropertiesPath());
         actor = new UserActor(getVkUserId(), tokenProvider.getVkAccesToken());
         System.out.println("VK actor has been initialized");
     }

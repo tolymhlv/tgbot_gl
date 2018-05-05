@@ -10,46 +10,37 @@ import starter.Starter;
 import vkside.VKMain;
 import vkside.ents.AccessToken;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Properties;
 
-public class VKConsoleTokenProvider implements VKTokenProvider {
+public class VKMockTokenProvider implements VKTokenProvider {
     VKMain main = Starter.getVkMain();
+    private Properties properties;
 
-    @Override
-    public Integer getVkAppId() {
-        System.out.print("Input VK appId:  ");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            return Integer.parseInt(br.readLine());
+    public VKMockTokenProvider(String propertiesPath) {
+        properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(propertiesPath)) {
+            properties.load(fis);
+        } catch (FileNotFoundException e) {
+            System.err.println("Error with properies files of secret keys");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -1;
+    }
 
+    @Override
+    public Integer getVkAppId() {
+        return Integer.parseInt(properties.getProperty("vkAppId"));
     }
 
     @Override
     public Integer getVkGroupId() {
-        System.out.print("Input VK groupId:  ");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            return Integer.parseInt(br.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        return Integer.parseInt(properties.getProperty("vkGroupId"));
     }
 
     @Override
     public String getVkAppSecretCode() {
-        System.out.print("Input VK appSecretCode:  ");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            return br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Error appSecretCode";
+        return (String) properties.getProperty("vkAppSecretCode");
     }
 
     @Override
@@ -58,18 +49,6 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
         return getAccesToken(code);
 
     }
-
-    @Override
-    public Integer getVkUserId() {
-        System.out.print("Input VK userId:  ");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            return Integer.parseInt(br.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
     public String getCode() {
         String link1 = "https://oauth.vk.com/authorize?client_id=" + main.getVkAppId() + "&display=page&redirect_uri=&scope=photos,groups,offline&response_type=code&v=5.74";
         System.out.println(link1);
@@ -103,5 +82,10 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
         String token = response.getAccessToken();
         System.out.println(token);
         return token;
+    }
+
+    @Override
+    public Integer getVkUserId() {
+        return Integer.parseInt(properties.getProperty("vkUserId"));
     }
 }
