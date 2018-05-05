@@ -68,7 +68,7 @@ public class Starter {
     public static String getPropertiesPath() {
         propertiesPath = "/Users/mhlv/IdeaProjects/bot2/src/main/resourses/secret_keys.properties";
 //        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-//            System.out.println("Input path to properties file");
+//            System.out.println("Input path to properties file: ");
 //            propertiesPath = br.readLine();
 //        } catch (IOException ignored) {
 //            ignored.printStackTrace();

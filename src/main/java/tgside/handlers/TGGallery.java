@@ -68,6 +68,6 @@ public class TGGallery extends TGHandler {
     }
 
     public void show() {
-        sendMessage("choose player");
+        sendMessage("gallery menu");
     }
 }

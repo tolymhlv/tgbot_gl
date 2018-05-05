@@ -18,14 +18,43 @@ public class TGMsgHandler extends TGHandler implements Runnable {
 
     @Override
     public void run() {
-        handlIt();
+        if (userNameCheker()) handlIt();
     }
 
     public void handlIt() {
         if (msg.hasPhoto()) {
             new TGPhotoAdd(msg, bot).handlIt();
-        } else if (msg.hasText()){ ;
+        } else if (msg.hasText()){
             new TGTextHandler(msg, bot).handlIt();
         }
+    }
+
+    private boolean userNameCheker() {
+        String userName =  msg.getChat().getUserName();
+        if (userName == null) {
+            sendMessage("go to the settings and set unique 'user name'");
+            sendMessage("later click /start again");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setButtons(SendMessage sendMessage) {
+        // Создаем клавиуатуру
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+        // Создаем список строк клавиатуры
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        // Первая сторчка
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(new KeyboardButton("/start"));
+        // Добавляем клавиатуру в список
+        keyboard.add(keyboardFirstRow);
+        // и устанваливаем этот список нашей клавиатуре
+        replyKeyboardMarkup.setKeyboard(keyboard);
     }
 }
