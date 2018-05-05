@@ -1,0 +1,7 @@
+# IntellijIdea files
+*.iml
+.idea
+target
+
+# properties files
+*.properties
