@@ -52,7 +52,7 @@ public class TGPhotoDel extends TGHandler{
         } catch (TelegramApiException e) {
             sendMessage("Delete error :(. Maybe there is no photo in album.");
         }
-        lastPhoto.delete();
+        if (lastPhoto != null) lastPhoto.delete();
     }
 
     public boolean deleteLastPhoto() throws NoSuchPhotoException{

@@ -44,7 +44,6 @@ public class VKPhotoDel extends VKHandler {
                 id = getAllPhotosFromAlbum(userName).rev(true).execute().getItems().get(0).getId();
             } else throw new NoSuchPhotoException("Album '" + userName + "'is empty.");
         } catch (ApiException | ClientException e) {
-            e.printStackTrace();
         }
         return id;
     }
