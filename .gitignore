@@ -4,4 +4,4 @@
 target
 
 # properties files
-*.properties
+./src/main/resources/secret_keys.properties

@@ -1,5 +1,7 @@
 package starter;
 
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -8,22 +10,36 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import starter.init.StarterPropertiesTokenProvider;
-import starter.init.StarterTokenProvder;
 import tgside.LapmBot;
-import tgside.init.TGCommandLineArgsTokenProvider;
 import tgside.init.TGPropertiesTokenProvider;
 import tgside.init.TGTokenProvider;
 import vkside.VKMain;
 
-import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Properties;
 
 public class Starter {
+    private static boolean startWithProxy = true;
     private static HttpHost proxy;
     private static final VKMain vkMain = new VKMain();
     private static String propertiesPath;
 
+    static {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(Starter.getPropertiesPath())) {
+            properties.load(fis);
+            startWithProxy = Boolean.parseBoolean(properties.getProperty("startWithProxy"));
+        } catch (FileNotFoundException e) {
+            System.err.println("Error with properies files of secret keys");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         propertiesPath = getPropertiesPath();
@@ -33,11 +49,17 @@ public class Starter {
         starter.tgInit(args);
         starter.vkInit();
     }
+
     public void tgInit(String[] args) {
         final TGTokenProvider TGTokenProvider = new TGPropertiesTokenProvider(propertiesPath);
-        final RequestConfig requestConfig = RequestConfig.custom()
-                .setProxy(new HttpHost(proxy))
-                .build();
+        RequestConfig requestConfig = null;
+        if (isStartWithProxy()) {
+            requestConfig = RequestConfig.custom()
+                    .setProxy(new HttpHost(proxy))
+                    .build();
+        } else {
+            requestConfig = RequestConfig.custom().build();
+        }
         final DefaultBotOptions options = new DefaultBotOptions();
         options.setRequestConfig(requestConfig);
 
@@ -66,13 +88,16 @@ public class Starter {
     }
 
     public static String getPropertiesPath() {
-        propertiesPath = "/Users/mhlv/IdeaProjects/bot2/src/main/resourses/secret_keys.properties";
+        propertiesPath = "/Users/mhlv/IdeaProjects/bot2/src/main/resources/secret_keys.properties";
 //        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
 //            System.out.println("Input path to properties file: ");
 //            propertiesPath = br.readLine();
 //        } catch (IOException ignored) {
-//            ignored.printStackTrace();
 //        }
         return propertiesPath;
+    }
+
+    public static boolean isStartWithProxy() {
+        return startWithProxy;
     }
 }

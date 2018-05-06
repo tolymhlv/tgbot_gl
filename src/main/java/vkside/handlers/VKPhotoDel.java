@@ -12,10 +12,8 @@ public class VKPhotoDel extends VKHandler {
 
     public VKPhotoDel(TGPhotoDel handler) {
         this.handler = handler;
-        userName = handler.getMsg().getChat().getUserName();
-        if (userName == null) {
-            userName = String.valueOf(handler.getMsg().getChat().getId());
-        }
+        if (userName == null) userName = handler.getMsg().getChat().getUserName();
+        if (userName == null) userName = String.valueOf(handler.getMsg().getChat().getId());
     }
 
     public boolean deleteLastPhoto() throws NoSuchPhotoException {
@@ -40,7 +38,6 @@ public class VKPhotoDel extends VKHandler {
     }
 
     private int getLastPhotoId() throws NoSuchPhotoException {
-        String albumId = Integer.toString(getAlbumId(userName));
         int id = 0;
         try {
             if (!isAlbumEmpty(userName)) {

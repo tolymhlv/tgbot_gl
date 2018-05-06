@@ -13,11 +13,14 @@ import utils.URLReader;
 import vkside.exceptions.NoSuchPhotoException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class VKHandler {
+abstract class VKHandler {
     TGHandler handler;
     VkApiClient vk = Starter.getVkMain().getVk();
     UserActor actor = Starter.getVkMain().getActor();
@@ -32,10 +35,10 @@ public abstract class VKHandler {
             e.printStackTrace();
         }
         if (albums != null) {
-            ArrayList<PhotoAlbumFull> listOfPhotos = new ArrayList<>(albums.getItems());
-            for (PhotoAlbumFull listOfPhoto : listOfPhotos) {
-                if (listOfPhoto.getTitle().equals(albumName))
-                    return listOfPhoto.getId();
+            ArrayList<PhotoAlbumFull> albumsList = new ArrayList<>(albums.getItems());
+            for (PhotoAlbumFull album : albumsList) {
+                if (album.getTitle().equals(albumName))
+                    return album.getId();
             }
         }
         return createAlbum(albumName);
@@ -49,11 +52,13 @@ public abstract class VKHandler {
             e.printStackTrace();
         }
         return -1;
+
     }
 
     File getPhoto(String photoUrl) throws NoSuchPhotoException {
-        File photo = new File("/Users/mhlv/Documents/Photos",userName + new Date().getTime() + ".jpg");
-        if (photoUrl != null) return URLReader.copyURLToFile(photoUrl, photo);
+        File tempPhoto = new File("./src/main/resourses/photos/" + userName + new Date().getTime() + ".jpg");
+        if (photoUrl != null)
+            return URLReader.copyURLToFile(photoUrl, tempPhoto);
         else throw new NoSuchPhotoException();
     }
 
@@ -65,6 +70,7 @@ public abstract class VKHandler {
         } catch (ApiException | ClientException e) {
             e.printStackTrace();
         }
+        if (wasPhotoDeleted) System.out.println("Photo '" + photoId +"' from album '" + userName + "' has been deleted");
         return wasPhotoDeleted;
     }
 
