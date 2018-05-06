@@ -13,11 +13,10 @@ import starter.init.StarterPropertiesTokenProvider;
 import tgside.LapmBot;
 import tgside.init.TGPropertiesTokenProvider;
 import tgside.init.TGTokenProvider;
+import utils.URLReader;
 import vkside.VKMain;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,24 +24,13 @@ import java.util.Properties;
 
 public class Starter {
     private static boolean startWithProxy = true;
-    private static HttpHost proxy;
+    private static HttpHost proxy = new HttpHost("89.236.17.106", 3128);
     private static final VKMain vkMain = new VKMain();
     private static String propertiesPath;
 
-    static {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(Starter.getPropertiesPath())) {
-            properties.load(fis);
-            startWithProxy = Boolean.parseBoolean(properties.getProperty("startWithProxy"));
-        } catch (FileNotFoundException e) {
-            System.err.println("Error with properies files of secret keys");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
-        propertiesPath = getPropertiesPath();
+        initConfig(args);
+        proxyTurnOner();
         StarterPropertiesTokenProvider tokenProvider = new StarterPropertiesTokenProvider(propertiesPath);
         proxy = new HttpHost(tokenProvider.getProxyAdress(), tokenProvider.getProxyPort());
         Starter starter = new Starter();
@@ -88,16 +76,37 @@ public class Starter {
     }
 
     public static String getPropertiesPath() {
-        propertiesPath = "/Users/mhlv/IdeaProjects/bot2/src/main/resources/secret_keys.properties";
-//        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-//            System.out.println("Input path to properties file: ");
-//            propertiesPath = br.readLine();
-//        } catch (IOException ignored) {
-//        }
         return propertiesPath;
+    }
+
+    public static void initConfig(String[] args) {
+        if (propertiesPath == null) {
+            propertiesPath = "./src/main/resources/secret_keys.properties";
+            String propertiesUrl = null;
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+                System.out.println("Input url to properties file: ");
+//                propertiesUrl = br.readLine();
+                propertiesUrl = args[0];
+                System.out.println();
+            } catch (IOException ignored) {
+            }
+            URLReader.copyURLToFile(propertiesUrl, new File(propertiesPath));
+        }
     }
 
     public static boolean isStartWithProxy() {
         return startWithProxy;
+    }
+
+    private static void proxyTurnOner() {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(propertiesPath)) {
+            properties.load(fis);
+            startWithProxy = Boolean.parseBoolean(properties.getProperty("startWithProxy"));
+        } catch (FileNotFoundException e) {
+            System.err.println("Error with propertieies files of secret keys");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

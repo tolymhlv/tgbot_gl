@@ -56,7 +56,7 @@ abstract class VKHandler {
     }
 
     File getPhoto(String photoUrl) throws NoSuchPhotoException {
-        File tempPhoto = new File("./src/main/resourses/photos/" + userName + new Date().getTime() + ".jpg");
+        File tempPhoto = new File("./src/main/resources/photos/" + userName + new Date().getTime() + ".jpg");
         if (photoUrl != null)
             return URLReader.copyURLToFile(photoUrl, tempPhoto);
         else throw new NoSuchPhotoException();

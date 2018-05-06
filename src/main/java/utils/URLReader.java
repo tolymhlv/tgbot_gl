@@ -41,7 +41,7 @@ public class URLReader {
             input.close();
             output.close();
 
-            System.out.println("Photo '" + file.getName() + "' was saved to the storage!");
+            System.out.println("File '" + file.getName() + "' was saved to the storage!");
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         } finally {
@@ -49,6 +49,8 @@ public class URLReader {
                 input.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (NullPointerException ei) {
+                System.out.println("Error with file. InputStream was not been init");
             }
         }
         return file;
