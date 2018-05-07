@@ -86,7 +86,7 @@ public class Starter {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
                 System.out.println("Input url to properties file: ");
 //                propertiesUrl = br.readLine();
-                propertiesUrl = args[0];
+                propertiesUrl = "https://www.dropbox.com/s/v81uwqdmcx0ic9r/secret_keys.properties?dl=1";
                 System.out.println();
             } catch (IOException ignored) {
             }
