@@ -45,14 +45,13 @@ public class TGPhotoAdd extends TGHandler{
 
     @Override
     public void setButtons(SendMessage sendMessage) {
-        // Создаем клавиуатуру
+
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         sendMessage.setReplyMarkup(replyKeyboardMarkup);
         replyKeyboardMarkup.setSelective(true);
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setOneTimeKeyboard(false);
 
-        // Создаем список строк клавиатуры
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         // Первая строчка
