@@ -1,1 +1,1 @@
-web: java -cp target/target/bot2-1.0.jar starter.Starter
+web: java -jar target/target/bot2-1.0.jar starter.Starter
