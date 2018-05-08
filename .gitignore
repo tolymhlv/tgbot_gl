@@ -4,6 +4,4 @@
 target
 
 # properties files
-./src/main/resources/secret_keys.properties
-
-*.jar
+./secret_keys.properties

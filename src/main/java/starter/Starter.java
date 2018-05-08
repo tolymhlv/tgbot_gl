@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public class Starter {
-    private static boolean startWithProxy = true;
+    private static boolean startWithProxy;
     private static HttpHost proxy = new HttpHost("89.236.17.106", 3128);
     private static final VKMain vkMain = new VKMain();
     private static String propertiesPath;
@@ -31,8 +31,6 @@ public class Starter {
     public static void main(String[] args) {
         initConfig(args);
         proxyTurnOner();
-        StarterPropertiesTokenProvider tokenProvider = new StarterPropertiesTokenProvider(propertiesPath);
-        proxy = new HttpHost(tokenProvider.getProxyAdress(), tokenProvider.getProxyPort());
         Starter starter = new Starter();
         starter.tgInit(args);
         starter.vkInit();
@@ -80,18 +78,19 @@ public class Starter {
     }
 
     public static void initConfig(String[] args) {
-        if (propertiesPath == null) {
-            propertiesPath = "./src/main/resources/secret_keys.properties";
-            String propertiesUrl = null;
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-                System.out.println("Input url to properties file: ");
-//                propertiesUrl = br.readLine();
-                propertiesUrl = "https://www.dropbox.com/s/v81uwqdmcx0ic9r/secret_keys.properties?dl=1";
-                System.out.println();
-            } catch (IOException ignored) {
-            }
-            URLReader.copyURLToFile(propertiesUrl, new File(propertiesPath));
-        }
+        propertiesPath = "./secret_keys.properties";
+//        if (propertiesPath == null) {
+//            propertiesPath = "./secret_keys.properties";
+//            String propertiesUrl = null;
+//            try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+//                System.out.println("Input url to properties file: ");
+////                propertiesUrl = br.readLine();
+//                propertiesUrl = "https://www.dropbox.com/s/v81uwqdmcx0ic9r/secret_keys.properties?dl=1";
+//                System.out.println();
+//            } catch (IOException ignored) {
+//            }
+//            URLReader.copyURLToFile(propertiesUrl, new File(propertiesPath));
+//        }
     }
 
     public static boolean isStartWithProxy() {
@@ -103,10 +102,18 @@ public class Starter {
         try (FileInputStream fis = new FileInputStream(propertiesPath)) {
             properties.load(fis);
             startWithProxy = Boolean.parseBoolean(properties.getProperty("startWithProxy"));
+            System.out.println(startWithProxy);
         } catch (FileNotFoundException e) {
-            System.err.println("Error with propertieies files of secret keys");
+            System.err.println("Error with properties files of secret keys");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (startWithProxy) {
+            StarterPropertiesTokenProvider tokenProvider = new StarterPropertiesTokenProvider(propertiesPath);
+            proxy = new HttpHost(tokenProvider.getProxyAdress(), tokenProvider.getProxyPort());
+            System.out.println("PROXY ON");
+        } else {
+            System.out.println("PROXY OFF");
         }
     }
 }
