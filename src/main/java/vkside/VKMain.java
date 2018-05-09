@@ -22,7 +22,7 @@ public class VKMain extends Thread {
         vk = new VkApiClient(transportClient);
         tokenProvider = new VKPropertiesTokenProvider(Starter.getPropertiesPath());
 //        tokenProvider = new VKMockTokenProvider(Starter.getPropertiesPath());
-        actor = new UserActor(getVkUserId(), tokenProvider.getVkAccesToken());
+        actor = new UserActor(getVkUserId(), tokenProvider.getVkAccessToken());
         System.out.println("VK actor has been initialized");
     }
 

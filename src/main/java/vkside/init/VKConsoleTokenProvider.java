@@ -53,9 +53,9 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
     }
 
     @Override
-    public String getVkAccesToken() {
+    public String getVkAccessToken() {
         String code = getCode();
-        return getAccesToken(code);
+        return getAccessToken(code);
 
     }
 
@@ -83,7 +83,7 @@ public class VKConsoleTokenProvider implements VKTokenProvider {
 
     }
 
-    private String getAccesToken(String code) {
+    private String getAccessToken(String code) {
         String link = "https://oauth.vk.com/access_token?client_id=" + main.getVkAppId() + "&client_secret=" + main.getVkAppSecretCode() + "&redirect_uri=&code=" + code;
         HttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
         HttpPost post = new HttpPost(link);

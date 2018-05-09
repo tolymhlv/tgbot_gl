@@ -10,7 +10,7 @@ public interface VKTokenProvider {
 
     String getVkAppSecretCode();
 
-    String getVkAccesToken();
+    String getVkAccessToken();
 
     Integer getVkUserId();
 }

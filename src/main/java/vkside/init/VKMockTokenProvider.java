@@ -22,7 +22,7 @@ public class VKMockTokenProvider implements VKTokenProvider {
         try (FileInputStream fis = new FileInputStream(propertiesPath)) {
             properties.load(fis);
         } catch (FileNotFoundException e) {
-            System.err.println("Error with properies files of secret keys");
+            System.err.println("Error with properties files of secret keys");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class VKMockTokenProvider implements VKTokenProvider {
     }
 
     @Override
-    public String getVkAccesToken() {
+    public String getVkAccessToken() {
         String code = getCode();
         return getAccesToken(code);
 

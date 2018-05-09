@@ -1,7 +1,7 @@
 # IntellijIdea files
 *.iml
 .idea
-target
 
 # properties files
-./secret_keys.properties
+/target
+/src/main/resources/secret_keys.properties

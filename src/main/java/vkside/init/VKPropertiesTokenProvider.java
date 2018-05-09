@@ -1,9 +1,6 @@
 package vkside.init;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Properties;
 
 public class VKPropertiesTokenProvider implements VKTokenProvider {
@@ -11,10 +8,10 @@ public class VKPropertiesTokenProvider implements VKTokenProvider {
 
     public VKPropertiesTokenProvider(String propertiesPath) {
         properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(propertiesPath)) {
+        try (InputStream fis = this.getClass().getResourceAsStream(propertiesPath)) {
             properties.load(fis);
         } catch (FileNotFoundException e) {
-            System.err.println("Error with properies files of secret keys");
+            System.err.println("Error with properties files of secret keys");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,8 +33,8 @@ public class VKPropertiesTokenProvider implements VKTokenProvider {
     }
 
     @Override
-    public String getVkAccesToken() {
-        return (String) properties.getProperty("vkAccesToken");
+    public String getVkAccessToken() {
+        return (String) properties.getProperty("vkAccessToken");
     }
 
     @Override

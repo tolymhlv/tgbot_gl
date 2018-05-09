@@ -1,7 +1,5 @@
 package starter;
 
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -9,7 +7,7 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
-import starter.init.StarterPropertiesTokenProvider;
+import starter.init.PropertiesConfigInitializer;
 import tgside.LapmBot;
 import tgside.init.TGPropertiesTokenProvider;
 import tgside.init.TGTokenProvider;
@@ -17,21 +15,17 @@ import utils.URLReader;
 import vkside.VKMain;
 
 import java.io.*;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Properties;
 
 public class Starter {
     private static boolean startWithProxy;
-    private static HttpHost proxy = new HttpHost("89.236.17.106", 3128);
+    private static HttpHost proxy;
     private static final VKMain vkMain = new VKMain();
-    private static String propertiesPath;
+    private static String propertiesPath = "/secret_keys.properties";
 
     public static void main(String[] args) {
-        initConfig(args);
-        proxyTurnOner();
         Starter starter = new Starter();
+        starter.proxySwitcher();
         starter.tgInit(args);
         starter.vkInit();
     }
@@ -77,8 +71,8 @@ public class Starter {
         return propertiesPath;
     }
 
-    public static void initConfig(String[] args) {
-        propertiesPath = "./secret_keys.properties";
+//    public static void initConfig(String[] args) {
+//        propertiesPath = "/secret_keys.properties";
 //        if (propertiesPath == null) {
 //            propertiesPath = "./secret_keys.properties";
 //            String propertiesUrl = null;
@@ -91,29 +85,28 @@ public class Starter {
 //            }
 //            URLReader.copyURLToFile(propertiesUrl, new File(propertiesPath));
 //        }
-    }
+//    }
 
     public static boolean isStartWithProxy() {
         return startWithProxy;
     }
 
-    private static void proxyTurnOner() {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(propertiesPath)) {
-            properties.load(fis);
-            startWithProxy = Boolean.parseBoolean(properties.getProperty("startWithProxy"));
-            System.out.println(startWithProxy);
-        } catch (FileNotFoundException e) {
-            System.err.println("Error with properties files of secret keys");
+    private void proxySwitcher() {
+
+//        startWithProxy = tokenProvider.getProxyStatus();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            startWithProxy = Boolean.parseBoolean(br.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("pr");
         }
+        PropertiesConfigInitializer tokenProvider = new PropertiesConfigInitializer(propertiesPath);
         if (startWithProxy) {
-            StarterPropertiesTokenProvider tokenProvider = new StarterPropertiesTokenProvider(propertiesPath);
-            proxy = new HttpHost(tokenProvider.getProxyAdress(), tokenProvider.getProxyPort());
+            proxy = new HttpHost(tokenProvider.getProxyAddress(), tokenProvider.getProxyPort());
             System.out.println("PROXY ON");
+
         } else {
             System.out.println("PROXY OFF");
         }
     }
+
 }
