@@ -7,6 +7,7 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import starter.init.HerokuConfigInitializer;
 import starter.init.PropertiesConfigInitializer;
 import tgside.LapmBot;
 import tgside.init.TGPropertiesTokenProvider;
@@ -92,16 +93,17 @@ public class Starter {
     }
 
     private void proxySwitcher() {
-
-//        startWithProxy = tokenProvider.getProxyStatus();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            startWithProxy = Boolean.parseBoolean(br.readLine());
-        } catch (IOException e) {
-            System.out.println("pr");
-        }
-        PropertiesConfigInitializer tokenProvider = new PropertiesConfigInitializer(propertiesPath);
+//        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+//            startWithProxy = Boolean.parseBoolean(br.readLine());
+//        } catch (IOException e) {
+//            System.out.println("pr");
+//        }
+//        PropertiesConfigInitializer config = new PropertiesConfigInitializer(propertiesPath);
+        HerokuConfigInitializer config = new HerokuConfigInitializer();
+        startWithProxy = config.getProxyStatus();
+        System.out.println(startWithProxy);
         if (startWithProxy) {
-            proxy = new HttpHost(tokenProvider.getProxyAddress(), tokenProvider.getProxyPort());
+            proxy = new HttpHost(config.getProxyAddress(), config.getProxyPort());
             System.out.println("PROXY ON");
 
         } else {
