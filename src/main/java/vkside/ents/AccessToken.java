@@ -18,4 +18,9 @@ public class AccessToken {
     public Integer getUserID() {
         return user_id;
     }
+
+    @Override
+    public String toString() {
+        return getAccessToken();
+    }
 }

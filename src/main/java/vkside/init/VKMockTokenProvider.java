@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import starter.Starter;
+import utils.GsonUtil;
 import vkside.VKMain;
 import vkside.ents.AccessToken;
 
@@ -64,24 +67,15 @@ public class VKMockTokenProvider implements VKTokenProvider {
 
     private String getAccesToken(String code) {
         String link = "https://oauth.vk.com/access_token?client_id=" + main.getVkAppId() + "&client_secret=" + main.getVkAppSecretCode() + "&redirect_uri=&code=" + code;
-        HttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
-        HttpPost post = new HttpPost(link);
+        AccessToken token = null;
         StringBuffer result = new StringBuffer();
-        try {
-            HttpResponse response = client.execute(post);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                result.append(line);
-            }
+        try (CloseableHttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
+             CloseableHttpResponse response = client.execute(new HttpPost(link))) {
+            token = GsonUtil.parseJson(response.getEntity().getContent(), AccessToken.class);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
-        Gson gson = new GsonBuilder().create();
-        AccessToken response = gson.fromJson(result.toString(), AccessToken.class);
-        String token = response.getAccessToken();
-        System.out.println(token);
-        return token;
+        return token.toString();
     }
 
     @Override

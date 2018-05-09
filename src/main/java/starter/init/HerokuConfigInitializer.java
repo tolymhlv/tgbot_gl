@@ -1,47 +1,36 @@
 package starter.init;
 
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
-import org.apache.http.HttpHost;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
+import starter.Starter;
+import utils.GsonUtil;
+import utils.JacksonUtil;
 
-import java.io.Closeable;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HerokuConfigInitializer implements ConfigInitializer {
-   HashMap<String,String> config;
 
-    public HerokuConfigInitializer() {
-        HttpGet hg = new HttpGet("https://api.heroku.com/apps/tg-bot-1/config-vars");
-        hg.setHeader("Accept", "application/vnd.heroku+json; version=3");
-        try (CloseableHttpClient client = HttpClients.createDefault();
-             CloseableHttpResponse response = client.execute(hg)) {
-            config = new HashMap<String, String>((Map<String, String>) response.getEntity());
+    public Config getConfig() {
+        Config config = new Config();
+        HttpGet get = new HttpGet("https://api.heroku.com/apps/tg-bot-1/releases/20/config-vars");
+        get.setHeader("Accept", "application/vnd.heroku+json; version=3");
+        try (CloseableHttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
+             CloseableHttpResponse response = client.execute(get)) {
+//            config = GsonUtil.parseJson(response.getEntity().getContent(), config.getClass());
+            config = JacksonUtil.parseJson(response.getEntity().getContent(), config.getClass());
             System.out.println(config);
         } catch (IOException e) {
-            System.out.println("Error with heroku config upload");
+            System.out.println("Error with Heroku config initializer");
+            e.printStackTrace();
         }
+        return config;
     }
 
-    @Override
-    public boolean getProxyStatus() {
-        return Boolean.parseBoolean(config.get("startWithProxy"));
-    }
-
-    @Override
-    public String getProxyAddress() {
-        return config.get("proxyAddress");
-    }
-
-    @Override
-    public Integer getProxyPort() {
-        return Integer.parseInt(config.get("proxyPort"));
-    }
 }

@@ -7,9 +7,10 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import starter.init.Config;
 import starter.init.HerokuConfigInitializer;
-import starter.init.PropertiesConfigInitializer;
 import tgside.LapmBot;
+import tgside.init.TGConfigTokenProvider;
 import tgside.init.TGPropertiesTokenProvider;
 import tgside.init.TGTokenProvider;
 import utils.URLReader;
@@ -19,20 +20,19 @@ import java.io.*;
 import java.util.Properties;
 
 public class Starter {
-    private static boolean startWithProxy;
-    private static HttpHost proxy;
+    private static HttpHost proxy = new HttpHost("89.236.17.106", 3128);
+    private static final Config config = new HerokuConfigInitializer().getConfig();
+    private static final Boolean startWithProxy = config.isStartWithProxy();
     private static final VKMain vkMain = new VKMain();
-    private static String propertiesPath = "/secret_keys.properties";
 
     public static void main(String[] args) {
         Starter starter = new Starter();
-        starter.proxySwitcher();
-        starter.tgInit(args);
+        starter.tgInit();
         starter.vkInit();
     }
 
-    public void tgInit(String[] args) {
-        final TGTokenProvider TGTokenProvider = new TGPropertiesTokenProvider(propertiesPath);
+    public void tgInit() {
+        final TGTokenProvider tokenProvider = new TGConfigTokenProvider();
         RequestConfig requestConfig = null;
         if (isStartWithProxy()) {
             requestConfig = RequestConfig.custom()
@@ -45,7 +45,7 @@ public class Starter {
         options.setRequestConfig(requestConfig);
 
         ApiContextInitializer.init();
-        final TelegramLongPollingBot bot = new LapmBot(TGTokenProvider.getBotToken(), options);
+        final TelegramLongPollingBot bot = new LapmBot(tokenProvider.getBotToken(), options);
         final TelegramBotsApi botapi = new TelegramBotsApi();
         try {
             botapi.registerBot(bot);
@@ -60,6 +60,10 @@ public class Starter {
         vkMain.start();
     }
 
+    public static boolean isStartWithProxy() {
+        return startWithProxy;
+    }
+
     public static VKMain getVkMain() {
         return vkMain;
     }
@@ -68,47 +72,7 @@ public class Starter {
         return proxy;
     }
 
-    public static String getPropertiesPath() {
-        return propertiesPath;
+    public static Config getConfig() {
+        return config;
     }
-
-//    public static void initConfig(String[] args) {
-//        propertiesPath = "/secret_keys.properties";
-//        if (propertiesPath == null) {
-//            propertiesPath = "./secret_keys.properties";
-//            String propertiesUrl = null;
-//            try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-//                System.out.println("Input url to properties file: ");
-////                propertiesUrl = br.readLine();
-//                propertiesUrl = "https://www.dropbox.com/s/v81uwqdmcx0ic9r/secret_keys.properties?dl=1";
-//                System.out.println();
-//            } catch (IOException ignored) {
-//            }
-//            URLReader.copyURLToFile(propertiesUrl, new File(propertiesPath));
-//        }
-//    }
-
-    public static boolean isStartWithProxy() {
-        return startWithProxy;
-    }
-
-    private void proxySwitcher() {
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-//            startWithProxy = Boolean.parseBoolean(br.readLine());
-//        } catch (IOException e) {
-//            System.out.println("pr");
-//        }
-//        PropertiesConfigInitializer config = new PropertiesConfigInitializer(propertiesPath);
-        HerokuConfigInitializer config = new HerokuConfigInitializer();
-        startWithProxy = config.getProxyStatus();
-        System.out.println(startWithProxy);
-        if (startWithProxy) {
-            proxy = new HttpHost(config.getProxyAddress(), config.getProxyPort());
-            System.out.println("PROXY ON");
-
-        } else {
-            System.out.println("PROXY OFF");
-        }
-    }
-
 }
