@@ -17,11 +17,12 @@ import java.util.HashMap;
 
 public class HerokuConfigInitializer implements ConfigInitializer {
 
-    public Config getConfig() {
+    public Config getConfig(String herokuToken) {
         Config config = new Config();
         HttpGet get = new HttpGet("https://api.heroku.com/apps/tg-bot-1/releases/20/config-vars");
         get.setHeader("Accept", "application/vnd.heroku+json; version=3");
-        try (CloseableHttpClient client = HttpClientBuilder.create().setProxy(Starter.getProxy()).build();
+        get.setHeader("Authorization", "Bearer " + herokuToken);
+        try (CloseableHttpClient client = HttpClientBuilder.create().build();
              CloseableHttpResponse response = client.execute(get)) {
 //            config = GsonUtil.parseJson(response.getEntity().getContent(), config.getClass());
             config = JacksonUtil.parseJson(response.getEntity().getContent(), config.getClass());

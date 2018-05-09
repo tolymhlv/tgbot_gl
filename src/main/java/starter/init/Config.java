@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 public class Config {
-    @JsonProperty("id")
-    @SerializedName("id")
-    private Integer id;
 
     @JsonProperty("vkAppId")
     @SerializedName("vkAppId")
@@ -81,15 +78,10 @@ public class Config {
         return tgBotToken;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Config{" +
-                "id=" + id +
-                ", vkAppId=" + vkAppId +
+                "vkAppId=" + vkAppId +
                 ", vkAppSecretCode='" + vkAppSecretCode + '\'' +
                 ", vkGroupId=" + vkGroupId +
                 ", vkAccessToken='" + vkAccessToken + '\'' +

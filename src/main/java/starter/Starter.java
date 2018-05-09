@@ -20,12 +20,16 @@ import java.io.*;
 import java.util.Properties;
 
 public class Starter {
-    private static HttpHost proxy = new HttpHost("89.236.17.106", 3128);
-    private static final Config config = new HerokuConfigInitializer().getConfig();
-    private static final Boolean startWithProxy = config.isStartWithProxy();
-    private static final VKMain vkMain = new VKMain();
+    private static final VKMain vkMain= new VKMain();
+    private static Config config;
+    private static Boolean startWithProxy;
+    private static HttpHost proxy;
+
 
     public static void main(String[] args) {
+        config = new HerokuConfigInitializer().getConfig(args[0]);
+        startWithProxy = config.isStartWithProxy();
+        if (startWithProxy) proxy = getProxy();
         Starter starter = new Starter();
         starter.tgInit();
         starter.vkInit();
@@ -69,6 +73,9 @@ public class Starter {
     }
 
     public static HttpHost getProxy() {
+        if (proxy == null) {
+            proxy = new HttpHost(config.getProxyAddress(), config.getProxyPort());
+        }
         return proxy;
     }
 
