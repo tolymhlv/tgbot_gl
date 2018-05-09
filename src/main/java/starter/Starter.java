@@ -29,6 +29,7 @@ public class Starter {
     public static void main(String[] args) {
         config = new HerokuConfigInitializer().getConfig(args[0]);
         startWithProxy = config.isStartWithProxy();
+//        startWithProxy = true;
         if (startWithProxy) proxy = getProxy();
         Starter starter = new Starter();
         starter.tgInit();
@@ -40,7 +41,7 @@ public class Starter {
         RequestConfig requestConfig = null;
         if (isStartWithProxy()) {
             requestConfig = RequestConfig.custom()
-                    .setProxy(new HttpHost(proxy))
+                    .setProxy(proxy)
                     .build();
         } else {
             requestConfig = RequestConfig.custom().build();
@@ -73,7 +74,7 @@ public class Starter {
     }
 
     public static HttpHost getProxy() {
-        if (proxy == null) {
+        if (proxy == null && startWithProxy) {
             proxy = new HttpHost(config.getProxyAddress(), config.getProxyPort());
         }
         return proxy;

@@ -24,7 +24,7 @@ public class VKPhotoAdd extends VKHandler {
     }
 
     public void addPhoto(String uri) {
-        File tempPhoto = new File("./photos/" + userName + new Date().getTime() + ".jpg");
+        File tempPhoto = new File(userName + new Date().getTime() + ".jpg");
         URLReader.copyURLToFile(uri, tempPhoto);
         PhotoUpload photoUpload = getServerUpload(userName);
         try {
