@@ -19,11 +19,9 @@ import tgside.ents.PhotoResponse;
 import vkside.exceptions.NoSuchPhotoException;
 import vkside.handlers.VKPhotoDel;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TGPhotoDel extends TGHandler{
@@ -51,6 +49,7 @@ public class TGPhotoDel extends TGHandler{
             sendMessage("This photo will be delete. Are you sure?");
         } catch (TelegramApiException e) {
             sendMessage("Delete error :(. Maybe there is no photo in album.");
+            Arrays.asList(e.getStackTrace()).forEach(x -> sendMessage(x.getMethodName()));
         }
         if (lastPhoto != null) lastPhoto.delete();
     }
